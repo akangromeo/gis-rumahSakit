@@ -27,7 +27,7 @@ function App() {
     );
 
     useEffect(() => {
-        fetch("http://gis_2105551148.local.net/api/tb_rs")
+        fetch("http://api_2105551148.local.net/api/tb_rs")
             .then((res) => res.json())
             .then((data) => setData(data))
             .catch((err) => console.log(err));
@@ -83,7 +83,7 @@ function App() {
         const token = localStorage.getItem("token"); // Ubah 'token' sesuai dengan key yang Anda gunakan saat menyimpan token
         console.log(token);
         // Kirim permintaan ke backend untuk logout
-        fetch("http://gis_2105551148.local.net/api/logout", {
+        fetch("http://api_2105551148.local.net/api/logout", {
             method: "POST",
             headers: {
                 Authorization: `Bearer ${token}`,
@@ -120,7 +120,7 @@ function App() {
         );
 
         if (confirmDelete) {
-            fetch(`http://gis_2105551148.local.net/api/tb_rs/${markerId}`, {
+            fetch(`http://api_2105551148.local.net/api/tb_rs/${markerId}`, {
                 method: "DELETE",
                 headers: {
                     Authorization: `Bearer ${token}`,
@@ -178,13 +178,10 @@ function App() {
                 toggleRegisterForm={toggleRegisterForm}
                 isLoggedIn={isLoggedIn}
                 handleLogout={handleLogout}
-                
             />
 
             {showAddForm && (
-                <AddHospitalComponent
-                    onSubmit={handleAddHospital}
-                />
+                <AddHospitalComponent onSubmit={handleAddHospital} />
             )}
 
             {showLoginForm && (

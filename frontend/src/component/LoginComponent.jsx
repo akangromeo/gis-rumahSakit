@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "../App.css";
 
-export default function LoginComponent({ setLoggedIn, onClose}) {
+export default function LoginComponent({ setLoggedIn, onClose }) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
@@ -9,24 +9,27 @@ export default function LoginComponent({ setLoggedIn, onClose}) {
         e.preventDefault();
         // Kirim data ke backend untuk otentikasi
         try {
-            const response = await fetch("http://gis_2105551148.local.net/api/login", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ email, password }),
-            });
+            const response = await fetch(
+                "http://api_2105551148.local.net/api/login",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ email, password }),
+                }
+            );
             const data = await response.json();
             // Handle respons dari backend sesuai kebutuhan aplikasi Anda
             console.log(data);
-    
+
             // Periksa keberhasilan otentikasi dari respons
             if (data.success) {
                 // Jika login berhasil, atur isLoggedIn menjadi true
                 setLoggedIn(true);
                 // Simpan token ke local storage
                 localStorage.setItem("token", data.data.token);
-                console.log(data.data.token)
+                console.log(data.data.token);
 
                 onClose();
             } else {
@@ -37,8 +40,7 @@ export default function LoginComponent({ setLoggedIn, onClose}) {
             console.error("Error:", error);
         }
     };
-    
-    
+
     return (
         <div>
             <form
@@ -72,8 +74,8 @@ export default function LoginComponent({ setLoggedIn, onClose}) {
                     <input
                         type="password"
                         id="password"
-                        value={password} 
-                        onChange={(e) => setPassword(e.target.value)} 
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         required
                     />
